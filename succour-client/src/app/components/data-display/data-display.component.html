@@ -1,0 +1,19 @@
+<div class="heading-container">
+    <mat-heading>
+        Live Feeds
+      </mat-heading>
+</div>
+<div class="messages-box" #messageBox>
+  <!-- [scrollTop]="messageBox.scrollHeight" -->
+  <!-- <mat-list>
+    <mat-list-item role="listitem" *ngFor="let activity of webSocketActivityData" class="activity-list-item">
+      <app-activity [activity]='activity'></app-activity>
+      <hr>
+    </mat-list-item>
+  </mat-list> -->
+<mat-list>
+  <mat-list-item class="d-flex flex-column" *ngFor="let activity of webSocketActivityData">
+    <app-activity [activity]='activity'></app-activity>
+  </mat-list-item>
+</mat-list>
+</div>

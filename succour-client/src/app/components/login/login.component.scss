@@ -1,0 +1,39 @@
+
+.layout {
+  display: flex;
+  height: 100%;
+  background-color: #f7f7f7;
+}
+
+.left-container {
+  width: 60%;
+  box-shadow: 0 0 10px;
+}
+img  {
+  width: 100%;
+  height: 100%;
+}
+
+.right-container {
+  display: flex;
+  align-items: center;
+  width: 40%;
+  justify-content: flex-end;
+}
+
+.formholder {
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin-right: 10em;
+}
+
+.formholder h3 {
+  font-family: Roboto;
+} 
+
+.formholder form {
+  display: flex;
+  flex-direction: column;
+}

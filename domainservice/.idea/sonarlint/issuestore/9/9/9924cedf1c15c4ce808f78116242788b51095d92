@@ -1,0 +1,27 @@
+
+V
+squid:S106b"9Replace this use of System.out or System.err by a logger.(ï–Úè8ƒ±ìÔ-
+nsquid:S1192I"PDefine a constant instead of duplicating this literal "entered into if" 3 times.(ÑÆ×è8³“½ Ô-
+«%squid:RedundantThrowsDeclarationCheck"sRemove the declaration of thrown exception 'java.lang.ArrayIndexOutOfBoundsException' which is a runtime exception.(É’õü8ö¡¡Ô-
+V
+squid:S106c"9Replace this use of System.out or System.err by a logger.(¿¦çñ8ë©ŸÔ-
+V
+squid:S1069"9Replace this use of System.out or System.err by a logger.(Ò—ºĞ8÷šöÔ-
+Ssquid:S14812"0Remove this unused "domainName1" local variable.(ğÈ¾áøÿÿÿÿ8ŞÎÃ›Ô-
+Ssquid:S1481<"0Remove this unused "domainName2" local variable.(Û…Şÿÿÿÿÿ8Â½Ã Ô-
+[
+squid:S106a"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ8ß÷¶ŸÔ-
+usquid:S1192P"WDefine a constant instead of duplicating this literal "entered into inner if2" 3 times.(›ºÖ‰8³“½ Ô-
+usquid:S1192M"WDefine a constant instead of duplicating this literal "entered into inner if1" 3 times.(Êš×è8³“½ Ô-
+usquid:S00117n"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ãÂŒÿÿÿÿÿ8€¤ Ô-
+tsquid:UselessImportCheck"IRemove this unused import 'org.apache.kafka.common.protocol.types.Field'.(Ì“„8»®Œ›Ô-
+Rsquid:S1481/"/Remove this unused "domainName" local variable.(‡Ë±“úÿÿÿÿ8É‡È¡Ô-
+vsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨öõØûÿÿÿÿ8³“½ Ô-
+psquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 35 to the 15 allowed.(É’õü8¿ÕØ›Ô-
+V
+squid:S106m"9Replace this use of System.out or System.err by a logger.(ØŸÎ¾8çíÓÔ-
+Xsquid:S1854-":Remove this useless assignment to local variable "split1".(ºÊÍ8ÅÖËšÔ-
+usquid:S00117Z"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§ØÀñùÿÿÿÿ8éÃÊ›Ô-
+[
+squid:S106\"9Replace this use of System.out or System.err by a logger.(ĞàŞÉıÿÿÿÿ8Ê²÷Ô-
+Isquid:S1481-"+Remove this unused "split1" local variable.(ºÊÍ8ÅÖËšÔ-

@@ -1,0 +1,24 @@
+<div class="layout">
+  <div class="left-container">
+      <img src="assets/img/login.jpg" alt="login-Image">
+  </div>
+  <div class="right-container">
+    <div class="formholder">
+      <form  [formGroup]="loginForm">
+        <h3> LOGIN</h3>
+      <mat-form-field appearance="outline" >
+          <input matInput placeholder="Username" [(ngModel)]="username" name="username" formControlName="username" required>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+          <input id="mysecretpassword" type="password" placeholder="Password" matInput showHideInput formControlName="password" required>
+       <i matSuffix class="material-icons" showHideTrigger="mysecretpassword" [showHideStatus]="{ materialIcon: true, id: 'mysecretpassword' }">
+       </i>
+      </mat-form-field>
+      <button mat-button routerLinkActive="router-link-active" (click) = "login()" [disabled]="!loginForm.valid">LogIn</button>
+    </form>
+  </div>
+  </div>
+</div>
+    
+    
+   

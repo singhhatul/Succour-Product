@@ -1,0 +1,289 @@
+version: "3"
+
+services:
+  authentication-service:
+    build: authentication-service/.
+    depends_on:
+      - mysql-service
+    restart: always
+    network_mode: "host"
+    container_name: authentication-service-container
+    environment:
+      WAIT_HOSTS: localhost:3306
+      WAIT_BEFORE_HOSTS: 20
+
+  mongo:
+    image: mongo
+    ports:
+      - 27017
+    container_name: mongodb
+    network_mode: "host"
+    hostname: localhost
+    restart: always
+
+  email-service:
+    build: email-service/.
+    network_mode: host
+    ports:
+      - 8052:8052
+    depends_on:
+      - kafka
+      - zookeeper
+      - mongo
+    restart: always
+    hostname: localhost
+    environment:
+      WAIT_HOSTS: localhost:2181 ,localhost:9092 ,localhost:27017
+      WAIT_BEFORE_HOSTS: 30
+
+  eureka-server:
+    build: eureka-server/
+    restart: always
+    network_mode: "host"
+    hostname: localhost
+    image: eureka-server
+    ports:
+      - 8085:8085
+
+  cleansing-service:
+    build: cleansing-service/
+    restart: always
+    network_mode: "host"
+    depends_on:
+      - kafka
+      - zookeeper
+    hostname: localhost
+    image: cleansing-service
+    ports:
+      - 9091:9091
+    environment:
+      WAIT_HOSTS: localhost:2181 ,localhost:9092
+      WAIT_BEFORE_HOSTS: 30
+
+  config-service:
+    build: config-server/
+    restart: always
+    network_mode: "host"
+    image: config-service
+    hostname: localhost
+    ports:
+      - 8888:8888
+
+  sentimental-service:
+    build: sentimental-service/
+    restart: always
+    network_mode: "host"
+    depends_on:
+      - kafka
+      - zookeeper
+    hostname: localhost
+    image: sentimental-service
+    ports:
+      - 8093:8093
+    environment:
+      WAIT_HOSTS: localhost:2181 ,localhost:9092
+      WAIT_BEFORE_HOSTS: 30
+
+  cgi-client-service:
+    build: CGI-client/.
+    restart: always
+    network_mode: "host"
+    depends_on:
+      - kafka
+      - zookeeper
+    #    hostname: localhost
+    #    image: CGI-domain-service
+    ports:
+      - 9096:9096
+    environment:
+      WAIT_HOSTS: localhost:2181 ,localhost:9092
+      WAIT_BEFORE_HOSTS: 30
+
+  disaster-client-service:
+    build: Disaster-Client/.
+    restart: always
+    network_mode: "host"
+    depends_on:
+      - kafka
+      - zookeeper
+    ports:
+      - 9098:9098
+    environment:
+      WAIT_HOSTS: localhost:2181 ,localhost:9092
+      WAIT_BEFORE_HOSTS: 30
+
+  nda-client-service:
+    build: NDA-client/.
+    restart: always
+    network_mode: "host"
+    depends_on:
+      - kafka
+      - zookeeper
+    ports:
+      - 9097:9097
+    environment:
+      WAIT_HOSTS: localhost:2181 ,localhost:9092
+      WAIT_BEFORE_HOSTS: 30
+
+  domainservice:
+    build: domainservice/
+    restart: always
+    network_mode: "host"
+    depends_on:
+      - kafka
+      - zookeeper
+    hostname: localhost
+    image: domain-service
+    ports:
+      - 9095:9095
+    environment:
+      WAIT_HOSTS: localhost:2181 ,localhost:9092
+      WAIT_BEFORE_HOSTS: 30
+
+  zuul-api:
+    build: zuul-api/.
+    depends_on:
+      - config-service
+      - eureka-server
+    restart: always
+    network_mode: "host"
+    image: zuul-api
+  #    hostname: localhost
+  #    ports:
+  #      - 8080:8080
+  mysql-service:
+    image: mysql:5.7
+    network_mode: "host"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "bootdb"
+    volumes:
+      - /data-docker/mysql:/var/lib/mysql
+
+  upstream-service:
+    build: upstream-service/
+    restart: always
+    network_mode: "host"
+    image: upstream-service
+    hostname: localhost
+    depends_on:
+      - kafka
+      - zookeeper
+    environment:
+      WAIT_HOSTS: localhost:2181 ,localhost:9092
+      WAIT_BEFORE_HOSTS: 30
+
+  zookeeper:
+    image: zookeeper
+    ports:
+      - "2181:2181"
+    network_mode: host
+    restart: always
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka-test
+    ports:
+      - "9092:9092"
+    restart: always
+    depends_on:
+      - zookeeper
+    network_mode: host
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_ZOOKEEPER_CONNECT: localhost:2181
+#      KAFKA_OPTS: -javaagent:/usr/app/jmx_prometheus_javaagent.jar=7071:/usr/app/prom-jmx-agent-config.yml
+
+
+  down-stream-cassandra-sink-server:
+    build: downstream-server/.
+    container_name: downstream-server-container
+    network_mode: host
+    restart: always
+    depends_on:
+      - kafka
+      - zookeeper
+      - cassandra
+    #    ports:
+    #      - '8097:8097'
+    environment:
+      WAIT_HOSTS: localhost:2181 ,localhost:9092, localhost:9042
+      WAIT_BEFORE_HOSTS: 30
+
+  cassandra:
+    image: cassandra
+    restart: always
+    container_name: cassandra-container
+    network_mode: host
+    volumes:
+      - ~/cassandra_data:/var/lib/cassandra
+
+  backend-socket:
+    build: backend-socket/
+    restart: always
+    network_mode: "host"
+    image: backend-socket
+    hostname: localhost
+    depends_on:
+      - kafka
+      - zookeeper
+    environment:
+      WAIT_HOSTS: localhost:2181 ,localhost:9092
+      WAIT_BEFORE_HOSTS: 30
+
+  financialadapter-neo4j:
+    container_name: financial-service
+    build: financial-service/.
+    hostname: localhost
+    network_mode: "host"
+    ports:
+      - 8089:8089
+    depends_on:
+      - neo4j
+    restart: always
+    environment:
+      WAIT_HOSTS: localhost:2181 ,localhost:9092, localhost:7474
+      WAIT_BEFORE_HOSTS: 30
+
+  neo4j:
+    image: neo4j:3.5
+    ports:
+      - 7474:7474
+      - 7687:7687
+    container_name: neo4j_docker
+    network_mode: "host"
+    hostname: localhost
+    restart: always
+    volumes:
+      - ./neo4j/data:/data
+      - ./neo4j/import:/import
+    environment:
+      - NEO4J_AUTH=neo4j/root123
+  #      - NEO4J_dbms_allow_format_migration=true
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - 9090:9090
+    restart: always
+    network_mode: host
+    hostname: 13.235.139.47
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    network_mode: "host"
+    hostname: localhost
+

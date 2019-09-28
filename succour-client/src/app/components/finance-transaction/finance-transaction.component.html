@@ -1,0 +1,18 @@
+<div class="row border">
+  <div class="col-md-8 col-sm-10 d-flex align-items-center" id="message">
+    <mat-list role="list">
+      <mat-list-item role="listitem">Distance: <mat-chip-list>
+          <mat-chip>{{ distance }}</mat-chip>
+        </mat-chip-list>
+      </mat-list-item>
+      <mat-list-item role="listitem">Difference between previous transaction and current transaction: <mat-chip-list>
+          <mat-chip>{{ timeStamp }}</mat-chip>
+        </mat-chip-list>
+      </mat-list-item>
+    </mat-list>
+  </div>
+  <div class="col-md-4 col-sm-2 border-right d-flex align-items-center justify-content-center"
+    [ngClass]="isGenuineTransaction ? 'bg-success' : 'bg-danger'">
+    {{message}}
+  </div>
+</div>

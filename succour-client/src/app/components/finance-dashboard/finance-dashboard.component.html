@@ -1,0 +1,15 @@
+<div class="container">
+  <div>
+    <button mat-raised-button color="primary" (click)="logout()">Logout</button>
+  </div>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div *ngFor="let transaction of transactions">
+        <app-finance-transaction [distance]='transaction.distance' [timeStamp]='transaction.timeStamp'
+          [message]='transaction.message'></app-finance-transaction>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>

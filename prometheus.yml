@@ -1,0 +1,148 @@
+# my global config
+global:
+  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+  # Attach these labels to any time series or alerts when communicating with
+  # external systems (federation, remote storage, Alertmanager).
+  external_labels:
+    monitor: 'Succour-monitor'
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+# - "first.rules"
+# - "second.rules"
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'prometheus'
+#     metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+    static_configs:
+      - targets: ['localhost:9090']
+
+
+  - job_name: 'downstream-server'
+      # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['localhost:8097']
+
+
+  - job_name: 'authentication-service'
+      # metrics_path defaults to '/metrics'
+      # scheme defaults to 'http'.
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['localhost:8083']
+
+
+  - job_name: 'backend-socket'
+      # metrics_path defaults to '/metrics'
+      # scheme defaults to 'http'.
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['localhost:8000']
+
+
+  - job_name: 'CGI-client'
+      # metrics_path defaults to '/metrics'
+      # scheme defaults to 'http'.
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['localhost:9096']
+
+
+  - job_name: 'Disaster-Client'
+      # metrics_path defaults to '/metrics'
+      # scheme defaults to 'http'.
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['localhost:9098']
+
+
+  - job_name: 'domainservice'
+      # metrics_path defaults to '/metrics'
+      # scheme defaults to 'http'.
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['localhost:9095']
+
+
+  - job_name: 'email-service'
+      # metrics_path defaults to '/metrics'
+      # scheme defaults to 'http'.
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+       - targets: ['localhost:8052']
+
+
+  - job_name: 'financial-service'
+      # metrics_path defaults to '/metrics'
+      # scheme defaults to 'http'.
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['localhost:8089']
+
+
+  - job_name: 'NDA-client'
+      # metrics_path defaults to '/metrics'
+      # scheme defaults to 'http'.
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['localhost:9097']
+
+
+  - job_name: 'sentimental-service'
+      # metrics_path defaults to '/metrics'
+      # scheme defaults to 'http'.
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+       - targets: ['localhost:8093']
+
+
+  - job_name: 'upstream-service'
+      # metrics_path defaults to '/metrics'
+      # scheme defaults to 'http'.
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['localhost:8096']
+
+
+  - job_name: 'config-server'
+      # metrics_path defaults to '/metrics'
+      # scheme defaults to 'http'.
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['localhost:8888']
+
+#  - job_name: 'kafka'
+#      # metrics_path defaults to '/metrics'
+#      # scheme defaults to 'http'.
+##    metrics_path: '/actuator/prometheus'
+#    static_configs:
+#      - targets: ['localhost:7071']
+#
+#
+#  - job_name: 'zoo-keeper'
+#      # metrics_path defaults to '/metrics'
+#      # scheme defaults to 'http'.
+#    metrics_path: '/actuator/prometheus'
+#    static_configs:
+#      - targets: ['localhost:2181']
+
+
+#  - job_name: 'cassandra'
+#      # metrics_path defaults to '/metrics'
+#      # scheme defaults to 'http'.
+#    metrics_path: '/actuator/prometheus'
+#    static_configs:
+#       - targets: ['localhost:9042']
+
+#  - job_name:
+#    static_configs:
+#      - targets: ['localhost:7071']

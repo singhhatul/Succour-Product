@@ -1,0 +1,28 @@
+create keyspace activity with replication={'class':'SimpleStrategy', 'replication_factor': 3};
+
+describe keyspaces;
+
+use activity;
+
+describe tables;
+
+create table activities(actor text , object FROZEN<activityobject> , verb text, id text PRIMARY KEY,timestamp bigint);
+
+create table domain(actor text, object FROZEN<activityobject> , verb text, id text PRIMARY KEY,timestamp bigint, sentimentScore float , sentimentTimeStamp bigint, domainName text,datetime timestamp);
+
+create table finance(id text PRIMARY KEY,actor text,verb text, object FROZEN<objecttypes> , distance float, timestamp float, message text)
+
+
+select * from activities;
+
+create type activityobject(objectType text, content text);
+create type objecttypes(Object text, content text);
+
+alter type activityobject
+add(int id);
+
+select count(*) from domain where domainname = 'Legal' ALLOW FILTERING;
+select count(*) from domain where actor = 'Legal' ALLOW FILTERING;
+
+
+succour.cgi.finance@gmail.com

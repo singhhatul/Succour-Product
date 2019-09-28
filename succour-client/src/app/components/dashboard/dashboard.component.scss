@@ -1,0 +1,92 @@
+mat-sidenav-container {
+  height: 88%;
+  //   padding-right: 5rem;
+  //   padding-left: 5rem;
+  background-color: #f7f7f7;
+  //   z-index: -1 !important;
+
+}
+
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  background: #00bfd8;
+  color: #ffffff;
+  box-shadow: 2px 55px 3px 10px;
+}
+
+fa-icon {
+  margin-right: 1rem;
+}
+
+app-real-time-line-chart {
+  background-color: black;
+
+  div {
+    background-color: black;
+  }
+}
+
+mat-card {
+  margin: 0;
+  padding: 0;
+}
+
+.component-card {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  box-shadow: 0px 1px 4px 0px;
+}
+
+.charts-sections {
+  display: flex;
+  justify-content: space-between;
+}
+
+.live-data {}
+
+.counter-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.counter-card {
+    width: 30%;
+    padding: 1rem;
+}
+
+.notification-card{
+  padding: 5px;
+  border: 1px solid lightgray;
+}
+
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+@media (max-width: 767px) {
+
+  //CSS
+  .charts-sections {
+    flex-direction: column;
+  }
+
+  mat-sidenav-container {
+    height: 88%;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    background-color: #f7f7f7;
+  }
+
+}
+
+// mat-card {
+//     app-real-time-line-chart {
+//         div {
+//             height: 100px;
+//         }
+//     }
+// }

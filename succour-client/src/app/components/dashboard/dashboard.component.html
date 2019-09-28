@@ -1,0 +1,52 @@
+<!-- Nav bar -->
+<mat-toolbar>
+  <div class="logo">
+    Succour
+  </div>
+  <div class="controls">
+    <fa-icon [icon]="faBell" (click)="sidenav.open()"></fa-icon>
+    <button mat-raised-button color="primary" (click)="logout()">Logout</button>
+  </div>
+</mat-toolbar>
+<mat-sidenav-container class="sidenav-container" (backdropClick)="close()">
+  <mat-sidenav #sidenav (keydown.escape)="close()" disableClose>
+    <fa-icon [icon]="faTimes" (click)="close()"></fa-icon>
+    <!-- Notifications -->
+    <section>
+      <div class="notification" *ngFor="let notification of notifications">
+        <div class="notification-card">
+          {{ notification }}
+        </div>
+      </div>>
+    </section>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <!-- Live Chart -->
+    <mat-card class="live-chart-card">
+      <app-real-time-line-chart [domainsQueue]='domainsQueue'></app-real-time-line-chart>
+    </mat-card> <!-- End Live Chart-->
+    <!-- Charts section -->
+    <section class="charts-sections">
+      <!-- Pie Chart -->
+      <app-pie-chart class="component-card" *ngIf="pieChartData" [pieChartData]='pieChartData'></app-pie-chart>
+      <app-bar-chart class="component-card" *ngIf="barChartData" [barChartData]='barChartData'></app-bar-chart>
+    </section>
+    <!--End Charts section-->
+    <!-- Live data section -->
+    <section class="live-data component-card">
+      <app-data-display [webSocketActivityData]='webSocketActivityData'></app-data-display>
+    </section>
+    <!--End Live data section-->
+    <!-- Counters section -->
+    <section>
+      <div class="counter-container">
+        <app-counter class="component-card counter-card" [count]='activitiesCountByActor' [subText]='domainName'>
+        </app-counter>
+        <div class="component-card counter-card" *ngFor="let countObject of activitiesCountByDomainName">
+          <app-counter [count]='countObject.count' [subText]='countObject.domainName'></app-counter>
+        </div>
+      </div>
+    </section>
+  </mat-sidenav-content>
+</mat-sidenav-container>

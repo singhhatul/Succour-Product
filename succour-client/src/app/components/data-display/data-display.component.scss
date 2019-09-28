@@ -1,0 +1,31 @@
+$margin: 50px;
+
+.messages-box {
+  // max-width: 50vw;
+  height: 60vh;
+  overflow-y: auto;
+  background-color: white;
+  // margin-bottom: 3%;
+}
+
+h1{
+  text-align: center;
+}
+
+
+.heading-container {
+  display: flex;
+    border-bottom: 1px solid lightgrey;
+    background-color: white;
+    
+}
+
+mat-heading {
+  padding: 1.5rem;
+  height: 56px;
+}
+
+app-activity {
+  // padding: .5rem;
+  // border-bottom: 1px solid lightgray;
+}
